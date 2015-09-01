@@ -1,0 +1,161 @@
+"id","University","mfAcademicPayRatio","dev"
+"1",17,"Falmouth University",1,0
+"2",54,"University of Gloucestershire",1,0
+"3",64,"Leeds Beckett University",1,0
+"4",77,"Staffordshire University",1,0
+"5",101,"Royal Conservatoire of Scotland",1,0
+"6",53,"The University of Central Lancashire",1.01,0.01
+"7",38,"University of Cumbria",0.99,0.01
+"8",63,"Kingston University",0.99,0.01
+"9",40,"Leeds Trinity University",0.99,0.01
+"10",30,"Ravensbourne",0.99,0.01
+"11",21,"The University of Winchester",1.01,0.01
+"12",89,"Cardiff Metropolitan University",1.01,0.01
+"13",47,"Anglia Ruskin University",1.02,0.02
+"14",56,"Coventry University",1.02,0.02
+"15",206,"University for the Creative Arts",0.98,0.02
+"16",58,"The University of East London",1.02,0.02
+"17",66,"The Manchester Metropolitan University",1.02,0.02
+"18",69,"University of Northumbria at Newcastle",1.02,0.02
+"19",80,"The University of West London",1.02,0.02
+"20",83,"The University of Westminster",1.02,0.02
+"21",85,"The University of Wolverhampton",1.02,0.02
+"22",13,"York St John University",1.02,0.02
+"23",97,"Glasgow School of Art",0.98,0.02
+"24",197,"The Arts University Bournemouth",1.03,0.03
+"25",131,"Goldsmiths College #",1.03,0.03
+"26",31,"Roehampton University",1.03,0.03
+"27",158,"The University of Salford",1.03,0.03
+"28",37,"Southampton Solent University",1.03,0.03
+"29",79,"Teesside University",1.03,0.03
+"30",81,"University of the West of England, Bristol",1.03,0.03
+"31",87,"Glynd?r University",1.03,0.03
+"32",107,"Edinburgh Napier University",1.03,0.03
+"33",106,"Glasgow Caledonian University",1.03,0.03
+"34",194,"St Mary's University College",1.03,0.03
+"35",193,"Stranmillis University College",1.03,0.03
+"36",48,"Bath Spa University",1.04,0.04
+"37",12,"Canterbury Christ Church University",1.04,0.04
+"38",201,"Courtauld Institute of Art",1.04,0.04
+"39",202,"London Metropolitan University",1.04,0.04
+"40",71,"The Nottingham Trent University",1.04,0.04
+"41",32,"Rose Bruford College",0.96,0.04
+"42",14,"University of St Mark and St John",0.96,0.04
+"43",78,"The University of Sunderland",1.04,0.04
+"44",90,"University of South Wales",1.04,0.04
+"45",82,"The University of Chichester",1.05,0.05
+"46",59,"The University of Greenwich",1.05,0.05
+"47",60,"University of Hertfordshire",1.05,0.05
+"48",1,"The Open University",1.05,0.05
+"49",72,"Oxford Brookes University",1.05,0.05
+"50",75,"Sheffield Hallam University",1.05,0.05
+"51",210,"University Campus Suffolk",1.05,0.05
+"52",46,"University of Worcester",1.05,0.05
+"53",185,"University of Ulster",1.05,0.05
+"54",108,"Aston University",1.06,0.0600000000000001
+"55",52,"Birmingham City University",1.06,0.0600000000000001
+"56",200,"University College Birmingham*",1.06,0.0600000000000001
+"57",11,"University of Chester",1.06,0.0600000000000001
+"58",199,"Conservatoire for Dance and Drama",1.06,0.0600000000000001
+"59",57,"University of Derby",1.06,0.0600000000000001
+"60",74,"The University of Portsmouth",1.06,0.0600000000000001
+"61",146,"The School of Oriental and African Studies",1.06,0.0600000000000001
+"62",176,"University of Wales Trinity Saint David",1.06,0.0600000000000001
+"63",105,"The University of the West of Scotland",1.06,0.0600000000000001
+"64",9,"Buckinghamshire New University",0.93,0.07
+"65",49,"The University of Bolton",1.07,0.0700000000000001
+"66",113,"Brunel University London",1.07,0.0700000000000001
+"67",68,"De Montfort University",1.07,0.0700000000000001
+"68",61,"The University of Huddersfield",1.07,0.0700000000000001
+"69",62,"The University of Lincoln",1.07,0.0700000000000001
+"70",104,"The Robert Gordon University",1.07,0.0700000000000001
+"71",35,"Royal Northern College of Music",0.92,0.08
+"72",127,"Birkbeck College",1.08,0.0800000000000001
+"73",51,"The University of Brighton",1.08,0.0800000000000001
+"74",16,"Edge Hill University",1.08,0.0800000000000001
+"75",123,"The University of Lancaster",1.08,0.0800000000000001
+"76",65,"Liverpool John Moores University",1.08,0.0800000000000001
+"77",76,"London South Bank University",1.08,0.0800000000000001
+"78",67,"Middlesex University",1.08,0.0800000000000001
+"79",27,"The University of Northampton",1.08,0.0800000000000001
+"80",171,"Heriot-Watt University",1.08,0.0800000000000001
+"81",169,"The University of Strathclyde",1.08,0.0800000000000001
+"82",7,"Bishop Grosseteste University",1.09,0.0900000000000001
+"83",111,"The University of Bradford",1.09,0.0900000000000001
+"84",120,"The University of Hull",1.09,0.0900000000000001
+"85",152,"Loughborough University",1.09,0.0900000000000001
+"86",73,"University of Plymouth",1.09,0.0900000000000001
+"87",95,"University of Abertay Dundee",1.09,0.0900000000000001
+"88",100,"Queen Margaret University, Edinburgh",1.09,0.0900000000000001
+"89",10,"Central School of Speech and Drama",1.1,0.1
+"90",28,"Newman University",1.1,0.1
+"91",159,"The University of Sheffield",1.1,0.1
+"92",211,"Leeds College of Art",0.89,0.11
+"93",26,"University of Bedfordshire",1.11,0.11
+"94",50,"Bournemouth University",1.11,0.11
+"95",39,"St Mary's University, Twickenham",1.11,0.11
+"96",162,"The University of Sussex",1.11,0.11
+"97",174,"The University of Stirling",1.11,0.11
+"98",122,"The University of Kent",1.12,0.12
+"99",24,"University of the Arts, London",1.12,0.12
+"100",141,"Royal Holloway and Bedford New College",1.12,0.12
+"101",161,"The University of Surrey",1.12,0.12
+"102",175,"SRUC",1.12,0.12
+"103",116,"University of Durham",1.13,0.13
+"104",117,"The University of East Anglia",1.13,0.13
+"105",118,"The University of Essex",1.13,0.13
+"106",157,"The University of Reading",1.13,0.13
+"107",160,"The University of Southampton",1.13,0.13
+"108",109,"The University of Bath",1.14,0.14
+"109",18,"Harper Adams University",1.14,0.14
+"110",121,"The University of Keele",1.14,0.14
+"111",189,"Writtle College",1.14,0.14
+"112",167,"The University of Edinburgh",1.14,0.14
+"113",112,"The University of Bristol",1.15,0.15
+"114",177,"Aberystwyth University",1.15,0.15
+"115",2,"Cranfield University",1.16,0.16
+"116",124,"The University of Leeds",1.16,0.16
+"117",23,"Liverpool Hope University",1.16,0.16
+"118",204,"The University of Manchester",1.16,0.16
+"119",190,"Norwich University of the Arts",1.16,0.16
+"120",156,"The University of Oxford",1.16,0.16
+"121",178,"Bangor University",1.16,0.16
+"122",110,"The University of Birmingham",1.17,0.17
+"123",119,"The University of Exeter",1.17,0.17
+"124",133,"Institute of Education",1.17,0.17
+"125",139,"Queen Mary University of London",1.17,0.17
+"126",34,"Royal College of Music",1.17,0.17
+"127",164,"The University of York",1.17,0.17
+"128",172,"The University of Dundee",1.17,0.17
+"129",126,"The University of Liverpool",1.18,0.18
+"130",149,"University College London",1.18,0.18
+"131",163,"The University of Warwick",1.18,0.18
+"132",180,"Swansea University",1.18,0.18
+"133",173,"The University of St Andrews",1.18,0.18
+"134",132,"Imperial College of Science, Technology and Medicine",1.19,0.19
+"135",151,"University of London (Institutes and activities)",1.19,0.19
+"136",154,"University of Newcastle-upon-Tyne",1.19,0.19
+"137",155,"University of Nottingham",1.19,0.19
+"138",41,"Trinity Laban Conservatoire of Music and Dance",1.19,0.19
+"139",168,"The University of Glasgow",1.19,0.19
+"140",184,"The Queen's University of Belfast",1.19,0.19
+"141",125,"The University of Leicester",1.2,0.2
+"142",137,"London School of Economics and Political Science",1.2,0.2
+"143",138,"London School of Hygiene and Tropical Medicine",1.2,0.2
+"144",3,"Royal College of Art",1.2,0.2
+"145",114,"The University of Cambridge",1.21,0.21
+"146",209,"The Liverpool Institute for Performing Arts",1.21,0.21
+"147",145,"St George's Hospital Medical School",1.21,0.21
+"148",170,"The University of Aberdeen",1.21,0.21
+"149",203,"The University of Buckingham",1.22,0.22
+"150",115,"The City University",1.22,0.22
+"151",134,"King's College London",1.22,0.22
+"152",179,"Cardiff University",1.22,0.22
+"153",188,"The Institute of Cancer Research",1.23,0.23
+"154",228,"Liverpool School of Tropical Medicine",1.23,0.23
+"155",208,"Guildhall School of Music and Drama",1.24,0.24
+"156",143,"The Royal Veterinary College",1.24,0.24
+"157",135,"London Business School",1.25,0.25
+"158",196,"University of the Highlands and Islands",1.35,0.35
+"159",195,"Royal Agricultural University",1.37,0.37
+"160",186,"The University of Wales (central functions)",1.38,0.38

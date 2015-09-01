@@ -7,7 +7,10 @@ shinyUI(pageWithSidebar(
                    c("Value 1" = "1",
                      "Value 2" = "2",
                      "Value 3" = "3")),
-    dateInput("date", "Date:")  
+    dateInput("date", "Date:"),
+    selectInput("select", label = h3("Select box"),
+                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
+                selected = 1)
   ),
   mainPanel(
         h3('Illustrating outputs'),
@@ -16,6 +19,8 @@ shinyUI(pageWithSidebar(
         h4('You entered'),
         verbatimTextOutput("oid2"),
         h4('You entered'),
-        verbatimTextOutput("odate")
+        verbatimTextOutput("odate"),
+        h4('You entered'),
+        verbatimTextOutput("oid3")
   )
 ))
