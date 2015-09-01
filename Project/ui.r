@@ -15,7 +15,7 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
             leafletOutput("map", width="100%", height="100%"),
 
             absolutePanel(
-                id = "site", class = "panel panel-default", fixed = TRUE,
+                id = "Wind Turbine", class = "panel panel-default", fixed = TRUE,
                 draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
                 width = 330, height = "auto",
 
@@ -29,19 +29,14 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
             ),
 
             absolutePanel(
-                id = "wind turbine", class = "panel panel-default", fixed = TRUE,
-                draggable = TRUE, top = 550, left = "auto", right = 20, bottom = "auto",
+                id = "Site", class = "panel panel-default", fixed = TRUE,
+                draggable = TRUE, top = 600, left = "auto", right = 20, bottom = "auto",
                 width = 330, height = "auto",
-
-#                 selectInput(
-#                     "select", label = h3("Choose turbine"),
-#                     choices = tchoices, #list(turbine[1], turbine[2], turbine[3]),
-#                     selected = turbine[1]
-                # ),
+                
                 numericInput(
-                    'id1', 'Mean wind speed at site', 5, min = 0, max = 10, step = 1
+                    'id1', 'Mean wind speed at site', 5, min = 0, max = 15, step = 0.1
                 ),
-                h4('AEP'),
+                h5('AEP'),
                 verbatimTextOutput("oid2")
             )
 #             selectInput(

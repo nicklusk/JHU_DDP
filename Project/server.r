@@ -10,23 +10,24 @@ shinyServer(
       output$map <- renderLeaflet({
           leaflet() %>%
               addTiles(
-                  urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
+                  urlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                   attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
               ) %>%
               setView(lng = -4.7, lat = 50.4, zoom = 10)
       })
 
-    selectedData <- reactive({
+    selectedData <<- reactive({
                 subset(powerCurves,turbine==input$select)[,2:4]
                 })
 
     shape<-2
-    scale<-reactive({
+    
+    scale1<-reactive({
             round(input$id1/gamma(1+1/shape),2)
     })
 
-    AEP<-reactive({
-            windprob<-dweibull(selectedData()$v,shape,scale())
+    AEP1<-reactive({
+            windprob<-dweibull(selectedData()$v,shape,scale1())
             meanP<-sum(windprob*selectedData()$P)
             round(8760*meanP,2)
     })
@@ -46,40 +47,50 @@ shinyServer(
                     ggtitle("Power coefficient vs wind speed")
     })
 
-    output$oid1 <- scale#renderPrint({scale})
-    output$oid2 <- AEP#renderPrint({input$id2})
-   # output$odate <- renderPrint({input$date})
-   # output$oid3 <- renderPrint({input$select})
+    output$oid1 <- scale1
+    output$oid2 <- AEP1
+    output$odate <- renderPrint({input$date})
+    output$oid3 <- renderPrint({input$select})
 
-    # This observer is responsible for maintaining the circles and legend,
-    # according to the variables the user has chosen to map to color and size.
+
     observe({
-
-
+ 
         leafletProxy("map", data = windSpeeds) %>%
             clearShapes() %>%
-            addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =NULL, group = NULL,
-                          stroke = FALSE, color = "blue", weight = 5, opacity = 0, fill = TRUE,
-                          fillColor = ~ws, fillOpacity = 0.5)
+            addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,
+                          stroke = FALSE, color = "blue", weight = 1, opacity = 1, fill = TRUE,
+                          fillColor = ~ws, fillOpacity = 0)
 
             #addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,layerId="colorLegend")
     })
 
     # Show a popup at the given location when map is clicked
-    showWTPopup <- function(site,lat, lon) {
-        content <- as.character(tagList(
-            sprintf("Latitude: %s", round(lat,2)), tags$br(),
-            sprintf("Longitude: %s", round(lon,2)), tags$br(),
-            sprintf("Wind speed: %s",tchoices[3])
+    showWTPopup <- function(id,lat, lon) {
+            selectedid <- windSpeeds[windSpeeds$id == id,]
+            AEP<-AEP(selectedid$ws,shape,selectedData()$v,selectedData()$P)
+            content <- as.character(tagList(
+            sprintf("Latitude: %s", round(lat,2)),tags$br(),
+            sprintf("Longitude: %s", round(lon,2)),tags$br(),
+            sprintf("Wind speed: %s",selectedid$ws),tags$br(),
+            sprintf("AEP: %s",AEP)
         ))
-        leafletProxy("map") %>% addPopups(lon, lat,content,layerId = site)
+        leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
+    }
+    
+    AEP<-function(meanv,shape,wsVector,powerVector){
+            scale<-round(meanv/gamma(1+1/shape),2)
+            windprob<-dweibull(wsVector,shape,scale)
+            meanP<-sum(windprob*powerVector)
+            round(8760*meanP,2)
     }
 
-    # When map is clicked, show a popup with site info
+    # When map is clicked, show a popup with wind speed at site and likely
+    # annual energy yield (AEP) of selected turbine if placed there.
+    
     observe({
         leafletProxy("map") %>% clearPopups()
-        #event <- input$map_shape_click
-        event <- input$map_click
+        event <- input$map_shape_click
+        #event <- input$map_click
         if (is.null(event))
         return()
 
