@@ -21,15 +21,13 @@ shinyServer(
                 })
 
     shape<-2
-    
-    scale1<-reactive({
-            round(input$id1/gamma(1+1/shape),2)
-    })
+
+#     scale1<-reactive({
+#             round(input$id1/gamma(1+1/shape),2)
+#     })
 
     AEP1<-reactive({
-            windprob<-dweibull(selectedData()$v,shape,scale1())
-            meanP<-sum(windprob*selectedData()$P)
-            round(8760*meanP,2)
+            AEP(input$id1,shape,selectedData()$v,selectedData()$P)
     })
 
 
@@ -47,14 +45,14 @@ shinyServer(
                     ggtitle("Power coefficient vs wind speed")
     })
 
-    output$oid1 <- scale1
+    #output$oid1 <- scale1
     output$oid2 <- AEP1
     output$odate <- renderPrint({input$date})
     output$oid3 <- renderPrint({input$select})
 
 
     observe({
- 
+
         leafletProxy("map", data = windSpeeds) %>%
             clearShapes() %>%
             addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,
@@ -76,7 +74,7 @@ shinyServer(
         ))
         leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
     }
-    
+
     AEP<-function(meanv,shape,wsVector,powerVector){
             scale<-round(meanv/gamma(1+1/shape),2)
             windprob<-dweibull(wsVector,shape,scale)
@@ -86,7 +84,7 @@ shinyServer(
 
     # When map is clicked, show a popup with wind speed at site and likely
     # annual energy yield (AEP) of selected turbine if placed there.
-    
+
     observe({
         leafletProxy("map") %>% clearPopups()
         event <- input$map_shape_click
