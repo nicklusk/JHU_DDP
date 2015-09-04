@@ -25,39 +25,20 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                     selected = turbine[1]
                 ),
                 plotOutput('plot1',height =200),
-                plotOutput('plot2',height =200)
+                plotOutput('plot2',height =200),
+                plotOutput('plot3',height =200)
             ),
 
             absolutePanel(
                 id = "Site", class = "panel panel-default", fixed = TRUE,
-                draggable = TRUE, top = 600, left = "auto", right = 20, bottom = "auto",
+                draggable = TRUE, top = 800, left = "auto", right = 20, bottom = "auto",
                 width = 330, height = "auto",
                 
-                numericInput(
-                    'id1', 'Mean wind speed at site', 5, min = 0, max = 15, step = 0.1
-                ),
+
                 h5('AEP'),
                 verbatimTextOutput("oid2")
             )
-#             selectInput(
-#                 "select", label = h3("Choose turbine"),
-#                 choices = tchoices, #list(turbine[1], turbine[2], turbine[3]),
-#                 selected = turbine[1]
-#             ),
-#             numericInput(
-#                 'id1', 'Mean wind speed at site', 5, min = 0, max = 10, step = 1
-#             ),
-            #checkboxGroupInput("id2", "Checkbox",
-            #              c("Value 1" = "1",
-            #                "Value 2" = "2",
-            #                "Value 3" = "3")),
-            #dateInput("date", "Date:"),
-            #h4('Scale parameter'),
-            #verbatimTextOutput("oid1"),
-            #h4('AEP'),
-            #verbatimTextOutput("oid2")
-            #plotOutput('plot1'),
-            #plotOutput('plot2')
+# 
         )
     )
 ))

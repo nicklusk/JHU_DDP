@@ -27,26 +27,33 @@ shinyServer(
 #     })
 
     AEP1<-reactive({
-            AEP(input$id1,shape,selectedData()$v,selectedData()$P)
+            AEP(seq(4,10),shape,selectedData()$v,selectedData()$P)
     })
 
 
     output$plot1 <- renderPlot({
             ggplot(selectedData(), aes(x=v, y=P)) +
                     geom_line(color="red") +
-                    geom_point(color="red",size=4) +
+                    geom_point(color="red",size=2) +
                     ggtitle("Power vs wind speed")
     })
 
     output$plot2 <- renderPlot({
             ggplot(selectedData(), aes(x=v, y=cP)) +
                     geom_line(color="blue") +
-                    geom_point(color="blue",size=4) +
+                    geom_point(color="blue",size=2) +
                     ggtitle("Power coefficient vs wind speed")
     })
 
+    output$plot3 <- renderPlot({
+        ggplot(selectedData(), aes(x=v, y=cP)) +
+            geom_line(color="blue") +
+            geom_point(color="blue",size=2) +
+            ggtitle("Power coefficient vs wind speed")
+    })
+    
     #output$oid1 <- scale1
-    output$oid2 <- AEP1
+    output$oid2 <-renderPrint({AEP1()[2]})
     output$odate <- renderPrint({input$date})
     output$oid3 <- renderPrint({input$select})
 
@@ -67,10 +74,10 @@ shinyServer(
             selectedid <- windSpeeds[windSpeeds$id == id,]
             AEP<-AEP(selectedid$ws,shape,selectedData()$v,selectedData()$P)
             content <- as.character(tagList(
-            sprintf("Latitude: %s", round(lat,2)),tags$br(),
+            sprintf("Latitude: %s ", round(lat,2)),tags$br(),
             sprintf("Longitude: %s", round(lon,2)),tags$br(),
-            sprintf("Wind speed: %s",selectedid$ws),tags$br(),
-            sprintf("AEP: %s",AEP)
+            sprintf("Wind speed: %3.1f m/s",selectedid$ws),tags$br(),
+            sprintf("AEP: %1.2e kWh",round(AEP,0))
         ))
         leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
     }
@@ -86,8 +93,10 @@ shinyServer(
     # annual energy yield (AEP) of selected turbine if placed there.
 
     observe({
+        
         leafletProxy("map") %>% clearPopups()
         event <- input$map_shape_click
+
         #event <- input$map_click
         if (is.null(event))
         return()
@@ -95,6 +104,8 @@ shinyServer(
         isolate({
             showWTPopup(event$id,event$lat, event$lng)
         })
+
+        
     })
 
   }
