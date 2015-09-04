@@ -33,15 +33,17 @@ shinyServer(
 
     output$plot1 <- renderPlot({
             ggplot(selectedData(), aes(x=v, y=P)) +
+                    scale_colour_brewer(palette="Set1")+
                     geom_line(color="red") +
-                    geom_point(color="red",size=4) +
+                    geom_point(color="red",size=3) +
                     ggtitle("Power vs wind speed")
     })
 
     output$plot2 <- renderPlot({
             ggplot(selectedData(), aes(x=v, y=cP)) +
+                    scale_colour_brewer()+
                     geom_line(color="blue") +
-                    geom_point(color="blue",size=4) +
+                    geom_point(color="blue",size=3) +
                     ggtitle("Power coefficient vs wind speed")
     })
 
@@ -69,8 +71,8 @@ shinyServer(
             content <- as.character(tagList(
             sprintf("Latitude: %s", round(lat,2)),tags$br(),
             sprintf("Longitude: %s", round(lon,2)),tags$br(),
-            sprintf("Wind speed: %s",selectedid$ws),tags$br(),
-            sprintf("AEP: %s",AEP)
+            sprintf("Wind speed: %s m/s",selectedid$ws),tags$br(),
+            sprintf("AEP: %s kWh",round(AEP,0))
         ))
         leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
     }
