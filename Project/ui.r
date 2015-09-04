@@ -8,9 +8,9 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
 
             tags$head(
                 # Include our custom CSS
-                includeCSS("styles.css")
-                #includeScript("gomap.js")
+                 includeCSS("myStyles.css")
             ),
+
 
             leafletOutput("map", width="100%", height="100%"),
 
@@ -26,19 +26,12 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                 ),
                 plotOutput('plot1',height =200),
                 plotOutput('plot2',height =200),
-                plotOutput('plot3',height =200)
-            ),
-
-            absolutePanel(
-                id = "Site", class = "panel panel-default", fixed = TRUE,
-                draggable = TRUE, top = 800, left = "auto", right = 20, bottom = "auto",
-                width = 330, height = "auto",
+                plotOutput('plot3',height =200),
                 
-
-                h5('AEP'),
-                verbatimTextOutput("oid2")
+                radioButtons("wsShow", label = h5("Show wind speeds at"),
+                             choices = list("Do not show"=1, "10 m" = 2, "25 m" = 3, "45 m" = 4), 
+                             selected = 1)
             )
-# 
         )
     )
 ))
