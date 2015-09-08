@@ -24,12 +24,12 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                     choices = tchoices, #list(turbine[1], turbine[2], turbine[3]),
                     selected = turbine[1]
                 ),
-                plotOutput('plot1',height =200),
-                plotOutput('plot2',height =200),
-                plotOutput('plot3',height =200),
-                
-                radioButtons("wsShow", label = h5("Show wind speeds at"),
-                             choices = list("Do not show"=1, "10 m" = 2, "25 m" = 3, "45 m" = 4), 
+                plotOutput('plot1',height =150),
+                plotOutput('plot2',height =150),
+                plotOutput('plot3',height =150),
+                verbatimTextOutput("oid1"),
+                selectInput("wsShow", label = h5("Show wind speeds at"),
+                             choices = list( "10 m" =1, "25 m" = 2, "45 m" = 3), 
                              selected = 1)
             )
         )

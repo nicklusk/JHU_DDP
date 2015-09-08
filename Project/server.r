@@ -17,42 +17,37 @@ shinyServer(function(input, output) {
                 })
     
     selectedWS <<- reactive({
-                subset(windSpeeds,id>input$wsShow)[,1:3,2+min(2,input$wsShow)]
+        names(windSpeeds)<-c("id","lat","lon","ws","ws","ws")
+        windSpeeds[,c(1:3,3+as.integer(input$wsShow))]
     })
-    
-   
-    # names(selectedWS())=c("id","lat","lon","ws")
     
     # add wind speeds to map - a lattice of 1 km2 squares, made invisible  
     observe({
-            
-            ws=selectedWS()[,1:2]
-            
+        
             reds = colorNumeric("Reds", domain = NULL)
             
             fill<-if(input$wsShow == 1) {
-                    0
+                    0.1
             } else {
                     0.6
             }
 
-            leafletProxy("map", data = windSpeeds) %>%
+            leafletProxy("map", data = selectedWS()) %>%
                     clearShapes() %>%
                     addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,
                                   stroke = FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,
-                                  fillColor = ~reds(ws10), fillOpacity = fill)
-
-            #addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,layerId="colorLegend")
+                                  fillColor = ~reds(ws), fillOpacity = fill)
+         
     })
 
     # Show a popup at the given location when map is clicked
     showWTPopup <- function(id,lat, lon) {
-            selectedid <- windSpeeds[windSpeeds$id == id,]
-            AEP<-AEP(selectedid$ws45,shape,selectedData()$v,selectedData()$P)
+            selectedid <- selectedWS()[selectedWS()$id == id,]
+            AEP<-AEP(selectedid$ws,shape,selectedData()$v,selectedData()$P)
             content <- as.character(tagList(
                     sprintf("Latitude: %s ", round(lat,2)),tags$br(),
                     sprintf("Longitude: %s", round(lon,2)),tags$br(),
-                    sprintf("Wind speed: %3.1f m/s",selectedid$ws45),tags$br(),
+                    sprintf("Wind speed: %3.1f m/s",selectedid$ws),tags$br(),
                     sprintf("AEP: %1.1f MWh",round(AEP,0))
             ))
             leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
@@ -111,7 +106,7 @@ shinyServer(function(input, output) {
                     ylab("AEP (MWh)")+
                     xlab("Mean wind speed at site (m/s)")
     })
-    
-    output$value <- renderPrint({ input$wsShow })
+#    output$oid1 <- renderPrint({windSpeeds[1,c(1:3,2+min(2,as.integer(input$wsShow)))]})
+    output$value <- renderPrint({ names(input$wsShow) })
   }
 )
