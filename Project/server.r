@@ -62,6 +62,7 @@ shinyServer(function(input, output) {
                 isolate({
                         showWTPopup(event$id,event$lat, event$lng)
                 })
+
                 
                 
         })
@@ -103,3 +104,4 @@ shinyServer(function(input, output) {
         #output$value <- renderPrint({ names(input$wsShow) })
 }
 )
+

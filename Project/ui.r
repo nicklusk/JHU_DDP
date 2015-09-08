@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 
 shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
-                   
+    
                    tabPanel("Interactive map",
                             div(class = "outer",
                                 
