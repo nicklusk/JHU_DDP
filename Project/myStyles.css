@@ -7,3 +7,8 @@ div.outer {
   overflow: hidden;
   padding: 0;
 }
+
+/* If not using map tiles, show a white background */
+.leaflet-container {
+  background-color: white !important;
+}
