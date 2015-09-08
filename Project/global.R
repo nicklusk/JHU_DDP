@@ -49,9 +49,7 @@ while(i<=length(turbine)) {
 # wind speeds are given for 10 m height with 1 km2 resolution
 windSpeeds<-read.csv("./data/windspeeds.csv",stringsAsFactors=FALSE)
 
-#names(windSpeeds)<-c("id","lat","lon","ws","ws","ws")
 
+# get Cornwall boundary data
 adm <- getData('GADM', country='GBR', level=2)
 cornwall=adm[adm$NAME_2=="Cornwall",]
-popup <- paste0("<strong>Name: </strong>", 
-                cornwall$NAME_2)

@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
         })
         
         
-               # add wind speeds to map - a lattice of 1 km2 squares
+        # add atlas wind speeds to map - a lattice of 1 km2 squares
         observe({
                 leafletProxy("map", data = selectedWS()) %>%
                         clearShapes() %>%
@@ -46,8 +46,7 @@ shinyServer(function(input, output) {
                 leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
         }
         
-        
-        
+      
         # When map is clicked, show a popup with wind speed at site and likely
         # annual energy yield (AEP) of selected turbine if placed there.
         
@@ -58,13 +57,7 @@ shinyServer(function(input, output) {
                 if (is.null(event)){
                         return()                        
                 }
-
-                isolate({
-                        showWTPopup(event$id,event$lat, event$lng)
-                })
-
-                
-                
+                showWTPopup(event$id,event$lat, event$lng)
         })
         
         
@@ -99,9 +92,7 @@ shinyServer(function(input, output) {
                         ylab("AEP (MWh)")+
                         xlab("Mean wind speed at site (m/s)")
         })
-        #   output$oid1 <- renderPrint({selectedid[4:6]})
-        #output$value <- renderPrint({ input$hubheight })
-        #output$value <- renderPrint({ names(input$wsShow) })
+
 }
 )
 
