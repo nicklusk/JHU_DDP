@@ -26,7 +26,7 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                                                 "hubHeight"  , label = h5("Choose tower height"),
                                                 min=0,
                                                 max=100,
-                                                value = 50
+                                                value = (hmin+hmax)/2
                                         ),
                                         plotOutput('plot1',height =150),
                                         plotOutput('plot2',height =150),

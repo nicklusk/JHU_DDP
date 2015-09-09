@@ -1,6 +1,8 @@
 library(shiny)
 library(leaflet)
 library(raster)
+library(sp)
+library(rgdal)
 library(RColorBrewer)
 library(scales)
 library(dplyr)
@@ -44,6 +46,7 @@ while(i<=length(turbine)) {
     tchoices[[i]] <- turbine[i]
     i <- i + 1
 }
+
 
 #read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
 # wind speeds are given for 10 m height with 1 km2 resolution

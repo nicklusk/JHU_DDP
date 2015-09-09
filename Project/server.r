@@ -13,21 +13,22 @@ shinyServer(function(input, output) {
                 subset(powerCurves,turbine==input$WT)[,2:4]
         })
         
-        # pick out atlas wind speeds for the chosen height
-        selectedWS <<- reactive({
-                names(windSpeeds)<-c("id","lat","lon","ws","ws","ws")
-                windSpeeds[,c(1:3,3+as.integer(input$wsShow))]
-        })
+#         # pick out atlas wind speeds for the chosen height
+#         selectedWS <<- reactive({
+#                 names(windSpeeds)<-c("id","lat","lon","ws","ws","ws")
+#                 windSpeeds[,c(1:3,3+as.integer(input$wsShow))]
+#         })
         
         
         # add atlas wind speeds to map - a lattice of 1 km2 squares
         observe({
-                leafletProxy("map", data = selectedWS()) %>%
+                leafletProxy("map", data = windSpeeds) %>%
                         clearShapes() %>%
                         addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>% # draws a nice border to Cornwall
                         addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,
                                       stroke = FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,
-                                      fillColor = ~reds(ws), fillOpacity = 0.5)
+                                      fillColor = ~reds(ws25), fillOpacity = 0.3)
+                        
         })
         
         # Show a popup at the given location when map is clicked
@@ -35,6 +36,7 @@ shinyServer(function(input, output) {
 
                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==id,4:6])
                 
+                # estimate 
                 wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)
                 AEP<-AEP(wsp,shape,selectedWTData()$v,selectedWTData()$P)
                 content <- as.character(tagList(
