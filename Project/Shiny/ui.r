@@ -7,7 +7,7 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                             div(class = "outer",
                                 
                                 tags$head(
-                                        # Include our custom CSS
+                                        # Include our custom CSS - verbatiom copy of SuperZip
                                         includeCSS("styles.css")
                                 ),
                                 
@@ -22,18 +22,12 @@ shinyUI(navbarPage("Wind turbines in Cornwall", id = "nav",
                                                 choices = tchoices, 
                                                 selected = turbine[1]
                                         ),
-                                        sliderInput(
-                                                "hubHeight"  , label = h5("Choose tower height"),
-                                                min=0,
-                                                max=100,
-                                                value = (hmin+hmax)/2
-                                        ),
+                                        
+                                        uiOutput("slider"),
+                                        
                                         plotOutput('plot1',height =150),
                                         plotOutput('plot2',height =150),
-                                        plotOutput('plot3',height =150),
-                                        selectInput("wsShow", label = h5("Show wind speeds at"),
-                                                    choices = list( "10 m" =1, "25 m" = 2, "45 m" = 3), 
-                                                    selected = 1)
+                                        plotOutput('plot3',height =150)
                                 )
                             )
                    ),
