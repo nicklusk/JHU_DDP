@@ -1,0 +1,60 @@
+---
+title       : Cornwall wind energy estimator
+subtitle    : 
+author      : Michael Hunt
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+Cornwall is England's windiest county.  
+  
+Many wind turbines have been sited here, and many more are planned.  
+
+  
+However the average wind speed varies with location and height above ground.
+
+
+It is useful to project developers to have an idea of how much energy any model of wind turbine would produce annually wherever in the county it is placed, on however high a tower.
+  
+
+We have produced a Shiny app that uses wind speed atlas data for the county together with wind turbine specifications to produce a clickable map, where the annual energy production (AEP) of a turbine is caluclated, at whatever location in the county is selected, whatever the heighht of the turbine tower, for a range of turbines commmonly seen in the county.
+
+
+
+--- 
+
+```{r get the data,echo=FALSE}
+# read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
+# wind speeds are given for 10 m, 25m and 45 m heights with 1 km2 resolution
+windSpeeds<-read.csv("windspeeds.csv",stringsAsFactors=FALSE)
+
+
+# get Cornwall boundary data
+adm <- getData('GADM', country='GBR', level=2)
+cornwall=adm[adm$NAME_2=="Cornwall",]
+```
+Here is the map of Cornwall
+
+```{r map of Cornwall,echo=FALSE}
+# get Cornwall boundary data
+library(raster)
+adm <- getData('GADM', country='GBR', level=2)
+cornwall=adm[adm$NAME_2=="Cornwall",]
+```
+
+```{r plot map of Cornwall,cache=FALSE}
+library(leaflet)
+m <- leaflet() %>%
+  addTiles() %>%  
+  setView(lng = -4.7, lat = 50.4, zoom = 10)
+m  
+```
+
+
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cornwall wind energy estimator</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Cornwall wind energy estimator">
+  <meta name="author" content="Michael Hunt">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Cornwall wind energy estimator</h1>
+    <h2></h2>
+    <p>Michael Hunt<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <p>Cornwall is England&#39;s windiest county.  </p>
+
+<p>Many wind turbines have been sited here, and many more are planned.  </p>
+
+<p>However the average wind speed varies with location and height above ground.</p>
+
+<p>It is useful to project developers to have an idea of how much energy any model of wind turbine would produce annually wherever in the county it is placed, on however high a tower.</p>
+
+<p>We have produced a Shiny app that uses wind speed atlas data for the county together with wind turbine specifications to produce a clickable map, where the annual energy production (AEP) of a turbine is caluclated, at whatever location in the county is selected, whatever the heighht of the turbine tower, for a range of turbines commmonly seen in the county.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <p>Here is the map of Cornwall</p>
+
+<pre><code class="r">library(leaflet)
+m &lt;- leaflet() %&gt;%
+  addTiles() %&gt;%  
+  setView(lng = -4.7, lat = 50.4, zoom = 10)
+m  
+</code></pre>
+
+<p>&lt;!--html_preserve--&gt;<div id="htmlwidget-6105" style="width:504px;height:504px;" class="leaflet"></div>
+<script type="application/json" data-for="htmlwidget-6105">{&quot;x&quot;:{&quot;calls&quot;:[{&quot;method&quot;:&quot;addTiles&quot;,&quot;args&quot;:[&quot;http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,null,null,{&quot;minZoom&quot;:0,&quot;maxZoom&quot;:18,&quot;maxNativeZoom&quot;:null,&quot;tileSize&quot;:256,&quot;subdomains&quot;:&quot;abc&quot;,&quot;errorTileUrl&quot;:&quot;&quot;,&quot;tms&quot;:false,&quot;continuousWorld&quot;:false,&quot;noWrap&quot;:false,&quot;zoomOffset&quot;:0,&quot;zoomReverse&quot;:false,&quot;opacity&quot;:1,&quot;zIndex&quot;:null,&quot;unloadInvisibleTiles&quot;:null,&quot;updateWhenIdle&quot;:null,&quot;detectRetina&quot;:false,&quot;reuseTiles&quot;:false,&quot;attribution&quot;:&quot;&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>&quot;}]}],&quot;setView&quot;:[[50.4,-4.7],10,[]]},&quot;evals&quot;:[]}</script>&lt;!--/html_preserve--&gt;</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='NA'>
+         2
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

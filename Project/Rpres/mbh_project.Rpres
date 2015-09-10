@@ -1,0 +1,39 @@
+mbh_project
+========================================================
+author: 
+date: 
+
+First Slide
+========================================================
+
+For more details on authoring R presentations click the
+**Help** button on the toolbar.
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Slide With Code
+========================================================
+
+```{r}
+summary(cars)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Slide With My Plot
+========================================================
+
+```{r plot map of Cornwall,cache=FALSE}
+library(leaflet)
+m <- leaflet() %>%
+  addTiles() %>%  
+  setView(lng = -4.7, lat = 50.4, zoom = 10)
+m  
+```
