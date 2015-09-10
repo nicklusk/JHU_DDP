@@ -36,17 +36,7 @@ Slide With Plot
 
 ![plot of chunk unnamed-chunk-2](mbh_project-figure/unnamed-chunk-2-1.png) 
 
-Slide With My Plot
+Slide With My Leaflet Plot
 ========================================================
-
-
-```r
-library(leaflet)
-m <- leaflet() %>%
-  addTiles() %>%  
-  setView(lng = -4.7, lat = 50.4, zoom = 10)
-m  
-```
-
-<!--html_preserve--><div id="htmlwidget-4271" style="width:504px;height:504px;" class="leaflet"></div>
-<script type="application/json" data-for="htmlwidget-4271">{"x":{"calls":[{"method":"addTiles","args":["http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"}]}],"setView":[[50.4,-4.7],10,[]]},"evals":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-2561" style="width:504px;height:504px;" class="leaflet"></div>
+<script type="application/json" data-for="htmlwidget-2561">{"x":{"calls":[{"method":"addTiles","args":["http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"}]}],"setView":[[50.4,-4.7],10,[]]},"evals":[]}</script><!--/html_preserve-->

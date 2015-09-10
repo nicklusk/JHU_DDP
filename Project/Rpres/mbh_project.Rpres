@@ -27,13 +27,12 @@ Slide With Plot
 plot(cars)
 ```
 
-Slide With My Plot
+Slide With My Leaflet Plot
 ========================================================
-
-```{r plot map of Cornwall,cache=FALSE}
+```{r plot map of Cornwall,cache=FALSE,echo=FALSE}
 library(leaflet)
-m <- leaflet() %>%
+
+leaflet() %>%
   addTiles() %>%  
   setView(lng = -4.7, lat = 50.4, zoom = 10)
-m  
 ```

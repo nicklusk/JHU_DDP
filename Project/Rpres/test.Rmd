@@ -1,0 +1,17 @@
+---
+title: "test"
+author: "mbh"
+date: "10 September 2015"
+output: html_document
+---
+
+
+```{r}
+library(leaflet)
+m<-leaflet() %>%
+        addTiles() %>%  
+        setView(lng = -4.7, lat = 50.4, zoom = 10)
+m
+```
+
+
