@@ -61,6 +61,8 @@ while(i<=length(turbine)) {
 windSpeeds<-read.csv("../data/windspeeds.csv",stringsAsFactors=FALSE)
 
 
+
 # get Cornwall boundary data
 adm <- getData('GADM', country='GBR', level=2)
 cornwall=adm[adm$NAME_2=="Cornwall",]
+rm(adm)

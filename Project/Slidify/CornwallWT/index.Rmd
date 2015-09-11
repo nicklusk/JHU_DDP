@@ -55,8 +55,8 @@ m<-leaflet() %>%
 addTiles() %>%  
 setView(lng = -4.7, lat = 50.4, zoom = 10)
 
-saveWidget(m, 'example.html')
-cat('<iframe src="example.html" STYLE="width:100%;height:100%"> </iframe>')
+saveWidget(m, 'cornwall.html')
+cat('<iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>')
 ```
 
 

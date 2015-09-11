@@ -1,4 +1,3 @@
-
 shinyServer(function(input, output) {
         
         # Create the map
@@ -21,12 +20,12 @@ shinyServer(function(input, output) {
                         addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,
                                       stroke = FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,
                                       fillColor = ~reds(ws25), fillOpacity = 0.3)
-                        
+                
         })
         
         # Show a popup at the given location when map is clicked
         showWTPopup <- function(id,lat, lon) {
-
+                
                 # atlas windspeeds at 10, 25 and 45 m heights at pop-up location.
                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==id,c("ws10","ws25","ws45")])
                 
@@ -46,9 +45,9 @@ shinyServer(function(input, output) {
                 leafletProxy("map") %>% addPopups(lon, lat,content,layerId = id)
         }
         
-       
         
-      
+        
+        
         # When map is clicked, show a popup with wind speed at site and likely
         # annual energy yield (AEP) of selected turbine if placed there.
         
@@ -68,7 +67,7 @@ shinyServer(function(input, output) {
         })
         
         output$slider <- renderUI({
-
+                
                 sliderInput(
                         "hubHeight"  , label = h5("Choose tower height (m)"),
                         min=unique(powerCurves[powerCurves$turbine==input$WT,"hmin"]),
@@ -77,7 +76,7 @@ shinyServer(function(input, output) {
                         step=0.1
                 )
                 
-                })
+        })
         
         
         
@@ -107,9 +106,9 @@ shinyServer(function(input, output) {
                 AEPall<-data.frame(meanv,AEPall)
                 names(AEPall)=c("meanv","AEP")
                 
-#                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
-#                 wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)
-#                 AEP<-AEP(wsp,shape,selectedWTData()$v,selectedWTData()$P)
+                #                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
+                #                 wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)
+                #                 AEP<-AEP(wsp,shape,selectedWTData()$v,selectedWTData()$P)
                 
                 ggplot(AEPall,aes(x=meanv,y=AEP))+
                         geom_line(color="green")+
@@ -117,7 +116,6 @@ shinyServer(function(input, output) {
                         ylab("AEP (MWh)")+
                         xlab("Mean wind speed at site (m/s)")
         })
-
+        
 }
 )
-
