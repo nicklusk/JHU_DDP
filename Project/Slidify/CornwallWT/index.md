@@ -1,14 +1,15 @@
 ---
-title       : Cornwall wind energy estimator
-subtitle    : 
-author      : Michael Hunt
-job         : 
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
-knit        : slidify::knit2slides
+title: "Cornwall wind energy estimator"
+author: "Michael Hunt"
+highlighter: highlight.js
+output: pdf_document
+job: null
+knit: slidify::knit2slides
+mode: selfcontained
+hitheme: tomorrow
+subtitle: null
+framework: io2012
+widgets: [mathjax,quiz,bootstrap,leaflet]
 ---
 
 Cornwall is England's windiest county.  
@@ -33,17 +34,7 @@ Here is the map of Cornwall
 
 
 
-
-```r
-library(leaflet)
-m <- leaflet() %>%
-  addTiles() %>%  
-  setView(lng = -4.7, lat = 50.4, zoom = 10)
-m  
-```
-
-<!--html_preserve--><div id="htmlwidget-6105" style="width:504px;height:504px;" class="leaflet"></div>
-<script type="application/json" data-for="htmlwidget-6105">{"x":{"calls":[{"method":"addTiles","args":["http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"}]}],"setView":[[50.4,-4.7],10,[]]},"evals":[]}</script><!--/html_preserve-->
+<iframe src="example.html" STYLE="width:100%;height:100%"> </iframe>
 
 
 

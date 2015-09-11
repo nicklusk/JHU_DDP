@@ -5,13 +5,13 @@ date: "10 September 2015"
 output: html_document
 ---
 
-
-```{r}
+```{r plot map of Cornwall,cache=FALSE,results="asis"}
 library(leaflet)
+library(htmlwidgets)
 m<-leaflet() %>%
-        addTiles() %>%  
-        setView(lng = -4.7, lat = 50.4, zoom = 10)
-m
+addTiles() %>%  
+setView(lng = -4.7, lat = 50.4, zoom = 10)
+
+saveWidget(m, 'example.html')
+cat('<iframe src="example.html" STYLE="width:50%;height:125%"> </iframe>')
 ```
-
-
