@@ -4,6 +4,8 @@ library(raster)
 library(RColorBrewer)
 library(dplyr)
 library(ggplot2)
+library(htmltools)
+library(htmlwidgets)
 
 reds = colorNumeric("Reds", domain = NULL)
 
