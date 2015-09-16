@@ -1,6 +1,6 @@
 library(shiny)
 library(leaflet)
-library(raster)
+library(sp)
 library(RColorBrewer)
 library(dplyr)
 library(ggplot2)
