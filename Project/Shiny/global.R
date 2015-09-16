@@ -1,6 +1,7 @@
 library(shiny)
 library(leaflet)
 library(sp)
+library(raster)
 library(RColorBrewer)
 library(dplyr)
 library(ggplot2)
@@ -47,7 +48,7 @@ wsAdj<-function(height,hVector,wsVector){
 }
 
 # read in wind turbine power curve data
-powerCurves<-read.csv("../data/powerCurves.csv",stringsAsFactors=FALSE)
+powerCurves<-read.csv("powerCurves.csv",stringsAsFactors=FALSE)
 
 # create vector of turbine names
 turbine<-unique(powerCurves$turbine)
@@ -60,7 +61,7 @@ while(i<=length(turbine)) {
 
 # read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
 # wind speeds are given for 10 m, 25m and 45 m heights with 1 km2 resolution
-windSpeeds<-read.csv("../data/windspeeds.csv",stringsAsFactors=FALSE)
+windSpeeds<-read.csv("windspeeds.csv",stringsAsFactors=FALSE)
 
 
 
