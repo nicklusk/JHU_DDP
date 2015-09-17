@@ -1,3 +1,5 @@
 base
 sp
 raster
+leaflet
+htmlwidgets

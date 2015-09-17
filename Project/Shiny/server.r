@@ -114,67 +114,57 @@ shinyServer(function(input, output) {
                         xlab("Mean wind speed at site (m/s)")
         })
         
-#         wspoly<-read.csv("../data/windspeeds.csv",stringsAsFactors=FALSE)
-#         coordinates(wspoly)=c("lon","lat")
-#         
-#         #Get shapefile of the species' range map
-#         range=readOGR(".",layer="wspoly")
-#         
-#         proj4string(wspoly)=proj4string(range)
         
-        #Get points within the range map
-        #inside.range=!is.na(over(wspoly,as(range,"SpatialPolygons")))
+        output$weibullDist <- renderPlot({
+            if (is.null(siteId()))  {
+                wsp=5
+            }
+            else {
+                # atlas windspeeds at 10, 25 and 45 m heights at pop-up location.
+                wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
+                # estimate wind speed at selected hub height, from atlas values at 10,25 and 45 m heights.
+                wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)           
+            } 
+            
+            # find scale factor, given the mean wind speed at the location
+            scale<-round(wsp/gamma(1+1/shape),2)
+            # calculate vector of wind speed probabilities
+            vseq<-seq(0,20,0.1)
+            windProb<-dweibull(vseq,shape,scale)
+            dw<-data.frame(vseq,windProb)
+            names(dw)=c("v","Probability")
+            ggplot(dw,(aes(x=v,y=Probability)))+geom_line()
+        }) 
+      
+        output$vHeight <- renderPlot({
+            if (is.null(siteId()))  {
+                wsVector<-c(5,5*2.5^(1/7),5*4.5^(1/7)) # assume (1/7) power law exponent
+            }
+            else {
+                wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
+            }
+            
+            hmin=unique(powerCurves[powerCurves$turbine==input$WT,"hmin"])
+            hmax=unique(powerCurves[powerCurves$turbine==input$WT,"hmax"])
+   
+            wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)
+            hseq<-seq(hmin,hmax,1)
+            wspH<-wsAdj(hseq,c(10,25,45),wsVector)
+            dh<-data.frame("h"=hseq,"v"=wspH)
+            dHub<-data.frame("hHub"=input$hubHeight,"vHub"=wsp)
+            ggplot(dh,(aes(x=h,y=v)))+geom_line()+geom_point(data=dHub,aes(x=hHub,y=vHub))
+        }) 
         
-#         output$weibullDist <- renderPlot({
-#             if (is.null(siteId()))  {
-#                 wsp=5
-#             }
-#             else {
-#                 # atlas windspeeds at 10, 25 and 45 m heights at pop-up location.
-#                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
-#                 # estimate wind speed at selected hub height, from atlas values at 10,25 and 45 m heights.
-#                 wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)           
-#             } 
-#             
-#             # find scale factor, given the mean wind speed at the location
-#             scale<-round(wsp/gamma(1+1/shape),2)
-#             # calculate vector of wind speed probabilities
-#             vseq<-seq(0,20,0.1)
-#             windProb<-dweibull(vseq,shape,scale)
-#             dw<-data.frame(vseq,windProb)
-#             names(dw)=c("v","Probability")
-#             ggplot(dw,(aes(x=v,y=Probability)))+geom_line()
-#         }) 
-#       
-#         output$vHeight <- renderPlot({
-#             if (is.null(siteId()))  {
-#                 wsVector<-c(5,5*2.5^(1/7),5*4.5^(1/7)) # assume (1/7) power law exponent
-#             }
-#             else {
-#                 wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
-#             }
-#             
-#             hmin=unique(powerCurves[powerCurves$turbine==input$WT,"hmin"])
-#             hmax=unique(powerCurves[powerCurves$turbine==input$WT,"hmax"])
-#    
-#             wsp<-wsAdj(input$hubHeight,c(10,25,45),wsVector)
-#             hseq<-seq(hmin,hmax,1)
-#             wspH<-wsAdj(hseq,c(10,25,45),wsVector)
-#             dh<-data.frame("h"=hseq,"v"=wspH)
-#             dHub<-data.frame("hHub"=input$hubHeight,"vHub"=wsp)
-#             ggplot(dh,(aes(x=h,y=v)))+geom_line()+geom_point(data=dHub,aes(x=hHub,y=vHub))
-#         }) 
+        output$siteId <- renderPrint({
+            
+            wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
+            #wsVector
+            siteId()
+            })
 #         
-#         output$siteId <- renderPrint({
-#             
-#             wsVector <-as.numeric(windSpeeds[windSpeeds$id==siteId(),c("ws10","ws25","ws45")])
-#             #wsVector
-#             siteId()
-#             })
-#         
-#         output$ex1 <- renderUI({
-#             #withMathJax()#(sprintf("$$e^{i \\pi} + 1 = 0$$"))
-#                 print("$$x = \\frac{-b\\pm\\sqrt{b^2 - 4ac}}{2a}$$")
-#       })
+        output$ex1 <- renderUI({
+            #withMathJax()#(sprintf("$$e^{i \\pi} + 1 = 0$$"))
+                print("$$x = y^2$$")
+      })
 }
 )

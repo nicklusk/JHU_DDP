@@ -7,7 +7,8 @@ shinyUI(navbarPage("Wind Energy in Cornwall", id = "nav",
                                    
                                    tags$head(
                                        # Include custom CSS - verbatim copy from SuperZip
-                                       includeCSS("styles.css")
+                                       includeCSS("styles.css"),
+                                       includeScript("MathJax.js")
                                    ),
                                    br(),
                                    leafletOutput("map", width="100%", height="90%"),
@@ -23,7 +24,7 @@ shinyUI(navbarPage("Wind Energy in Cornwall", id = "nav",
                                        ),
                                        
                                        uiOutput("slider"),
-                                       
+                                       withMathJax(uiOutput("ex1")),
                                        plotOutput('plot1',height =150),
                                        plotOutput('plot2',height =150),
                                        plotOutput('plot3',height =150)
@@ -84,31 +85,31 @@ shinyUI(navbarPage("Wind Energy in Cornwall", id = "nav",
                                               br(),
                                               p("Once a pop-up has appeared, leave it in place and try varying the tower height to see how
                                                 the annual energy production is affected.",
+                                                style = "font-family: 'Source Sans Pro';"),
+                                              br(),
+                                              h4("Calculations"),
+                                              p("This tab shows how the calculations are carried for determining the wind speed
+                                                at the selected tower height and location, and also the annual energy production
+                                                of the selected turbine, given the location and mean wind speed at hub height",
                                                 style = "font-family: 'Source Sans Pro';")
-#                                               br(),
-#                                               h4("Calculations"),
-#                                               p("This tab shows how the calculations are carried for determining the wind speed
-#                                                 at the selected tower height and location, and also the annual energy production
-#                                                 of the selected turbine, given the location and mean wind speed at hub height",
-#                                                 style = "font-family: 'Source Sans Pro';")
                                        )
                                        
                                        )
                                               )
-                                              )                    
-#                       tabPanel("Calculations",
-#                                
-#                                fluidPage(
-#                                         fluidRow(
-#                                             column(width=6,
-#                                                    plotOutput('weibullDist',width="100%",height =250),
-#                                                    plotOutput('vHeight',width="100%",height =250)
-#                                                    #verbatimTextOutput("siteId")
-#                                                    ),
+                                              ),                    
+                      tabPanel("Calculations",
+                               
+                               fluidPage(
+                                        fluidRow(
+                                            column(width=6,
+                                                   plotOutput('weibullDist',width="100%",height =250),
+                                                   plotOutput('vHeight',width="100%",height =250)
+                                                   #verbatimTextOutput("siteId")
+                                                   )
 #                                             column(width=5,
 #                                                    withMathJax(uiOutput("ex1"))
 #                                                    )
-#                                         )
-#                                     ) 
-#                               )
+                                        )
+                                    ) 
+                              )
 ))
