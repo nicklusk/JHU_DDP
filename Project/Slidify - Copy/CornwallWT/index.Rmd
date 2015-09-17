@@ -1,0 +1,150 @@
+---
+title: "Cornwall wind energy estimator"
+author: "Michael Hunt"
+highlighter: highlight.js
+output: pdf_document
+job: null
+knit: slidify::knit2slides
+mode: selfcontained
+hitheme: tomorrow
+subtitle: null
+framework: io2012
+widgets: [mathjax,quiz,bootstrap,leaflet]
+---
+
+## Purpose of the App
+Cornwall is England's windiest county.  
+  
+Many wind turbines have been sited here, and many more are planned.  
+  
+  
+However the average wind speed varies with location and height above ground.
+  
+
+It is useful to project developers to have an idea of how much energy any model of wind turbine would produce annually wherever in the county it is placed, on however high a tower.
+    
+
+We have produced a Shiny app that uses wind speed atlas data for the county together with wind turbine specifications to produce a clickable map, where the annual energy production (AEP) of a turbine is calculated, at whatever location in the county is selected, whatever the height of the turbine tower, for a range of turbines commmonly seen in the county.
+
+
+
+--- 
+
+```{r libraries,echo=FALSE,message=FALSE}
+library(leaflet)
+library(sp)
+library(rgdal)
+library(raster)
+library(RColorBrewer)
+library(dplyr)
+library(ggplot2)
+library(htmltools)
+library(htmlwidgets)
+```
+## Display a map of Cornwall
+
+```{r,echo=FALSE}
+# read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
+# wind speeds are given for 10 m, 25m and 45 m heights with 1 km2 resolution
+windSpeeds<-read.csv("windspeeds.csv",stringsAsFactors=FALSE)
+```
+
+
+  
+```{r,echo=FALSE}
+
+# get Cornwall boundary data
+library(sp)
+adm <- getData('GADM', country='GBR', level=2)
+cornwall=adm[adm$NAME_2=="Cornwall",]
+library(leaflet)
+library(htmlwidgets)
+m<-leaflet() %>%
+    addTiles() %>%
+    addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>%
+    setView(lng = -4.7, lat = 50.4, zoom = 10)
+
+saveWidget(m, 'cornwall.html')
+cat('<iframe src="cornwall.html" STYLE="width:80%;height:80%"> </iframe>')
+includeHTML("cornwall.html")
+```
+
+The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayed by an illustrative wind speed mesh.
+
+---
+
+## Calculate the mean annual wind speed
+
+The user clicks on the map within the boundaries of Cornwall and the app detects the location of the click to within a 1 km2 square. 
+
+The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10m, 25m and 45m. A linearised (by log transform) power law fit is used.
+
+For example, if a location selected were on the windy north coast, that had id25 `r id=25`in the atlas csv file, and if a tower height of h=50 m `r h=50` had been selected, then the windspeed at that height would be found to be:
+
+```{r, echo=FALSE}
+wsAdj<-function(height,hVector,wsVector){
+
+# height - height at which speed is to be calculated
+# hVector - known heights
+# ws Vector - known wind speeds
+
+       hlog<-log(hVector/hVector[1])
+       wslog<-log(wsVector/wsVector[1])
+       fit<-lm(wslog~-1+hlog)
+       wsVector[1]*(height/hVector[1])^fit[[1]] # returns the estimated wind speed at h=height
+
+}
+```
+
+```{r, echo=FALSE}
+id=25
+h=50
+wsVector <-as.numeric(windSpeeds[windSpeeds$id==id,c("ws10","ws25","ws45")])
+# estimate wind speed at selected hub height, from atlas values at 10,25 and 45 m heights.
+wsp<-wsAdj(h,c(10,25,45),wsVector)
+print(paste0(round(wsp,2)," m/s"))
+```
+
+
+---
+
+## Calculate the annual energy production of a turbine
+
+As is common practice, a Weibull distribution of wind speeds is assumed, determined by two parameters, the scale parameter (which determines where the peak lies) and the shape parameter (which determines the width of the distribution). A shape parameter of 2 is assumed. This, together with the mean wind speed determines the scale parameter via a gamma function.
+  
+Given this windspeed and the power output specification of the selected turbine, the annual energy production (AEP) of the turbine can be estimated.
+  
+For example, if the mean wind speed were 8 m/s `r ws=8`, and a 2 MW Gamesa G80 `r WT="Gamesa G80"` turbine were selected, the AEP would be
+
+```{r, echo=FALSE}
+AEP<-function(meanv,shape=2,wsVector,powerVector){
+
+    # find scale factor, given the mean wind speed at the location
+    scale<-round(meanv/gamma(1+1/shape),2)
+
+    # calculate vector of wind speed probabilities
+    windprob<-dweibull(wsVector,shape,scale)
+
+    # average output power = sum power at each windspeed bin x probability of each wind speed bin
+    meanP<-sum(windprob*powerVector) # average output power = sum power at each windspeed bin x probability of each wind speed bin
+    round(8760*meanP,2)/1000
+}
+```
+
+
+```{r, echo=FALSE}
+# read in wind turbine power curve data
+WT="Gamesa G80"
+powerCurves<-read.csv("powerCurves.csv",stringsAsFactors=FALSE)
+
+shape<-2
+
+selectedWTData<-subset(powerCurves,turbine==WT)[,c("v","P","cP")]
+a<-AEP(ws,shape,selectedWTData$v,selectedWTData$P)
+print(paste0(round(as.numeric(a),0)," MWh"))
+
+```
+Any number of wind turbines could be included, and the app could be extended to cover the whole of the UK.
+
+
+

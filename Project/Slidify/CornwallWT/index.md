@@ -11,6 +11,7 @@ subtitle: null
 framework: io2012
 widgets: [mathjax,quiz,bootstrap,leaflet]
 ---
+
 ## Purpose of the App
 Cornwall is England's windiest county.  
   
@@ -30,13 +31,15 @@ We have produced a Shiny app that uses wind speed atlas data for the county toge
 --- 
 ## Display a map of Cornwall
 
+
+
 The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayn by an illustrative wind speed mesh.
   
 
+```
+## <iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>
+```
 
-
-
-<iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>
 
 ---
 
@@ -49,11 +52,34 @@ The turbine tower height is selected with a slider, and the mean annual wind spe
 For example, if a location selected were on the windy north coast, that had id25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:
 
 
+```r
+wsAdj<-function(height,hVector,wsVector){
+
+# height - height at which speed is to be calculated
+# hVector - known heights
+# ws Vector - known wind speeds
+
+       hlog<-log(hVector/hVector[1])
+       wslog<-log(wsVector/wsVector[1])
+       fit<-lm(wslog~-1+hlog)
+       wsVector[1]*(height/hVector[1])^fit[[1]] # returns the estimated wind speed at h=height
+
+}
+```
 
 
 ```
-## [1] "6.84 m/s"
+## Error in `[.data.frame`(windSpeeds, windSpeeds$id == id, c("ws10", "ws25", : object 'id' not found
 ```
+
+```
+## Error in wsAdj(h, c(10, 25, 45), wsVector): object 'wsVector' not found
+```
+
+```
+## Error in paste0(round(wsp, 2), " m/s"): object 'wsp' not found
+```
+
 
 ---
 
@@ -68,8 +94,17 @@ For example, if the mean wind speed were 8 m/s , and a 2 MW Gamesa G80  turbine 
 
 
 
+
 ```
-## [1] "7149 MWh"
+## Error in eval(expr, envir, enclos): object 'WT' not found
+```
+
+```
+## Error in AEP(ws, shape, selectedWTData$v, selectedWTData$P): object 'ws' not found
+```
+
+```
+## Error in paste0(round(as.numeric(a), 0), " MWh"): object 'a' not found
 ```
 Any number of wind turbines could be included, and the app could be extended to cover the whole of the UK.
 

@@ -69,7 +69,8 @@
   <article data-timings="">
     <p>The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayn by an illustrative wind speed mesh.</p>
 
-<iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>
+<pre><code>## &lt;iframe src=&quot;cornwall.html&quot; STYLE=&quot;width:100%;height:100%&quot;&gt; &lt;/iframe&gt;
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -86,7 +87,27 @@
 
 <p>For example, if a location selected were on the windy north coast, that had id25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:</p>
 
-<pre><code>## [1] &quot;6.84 m/s&quot;
+<pre><code class="r">wsAdj&lt;-function(height,hVector,wsVector){
+
+# height - height at which speed is to be calculated
+# hVector - known heights
+# ws Vector - known wind speeds
+
+       hlog&lt;-log(hVector/hVector[1])
+       wslog&lt;-log(wsVector/wsVector[1])
+       fit&lt;-lm(wslog~-1+hlog)
+       wsVector[1]*(height/hVector[1])^fit[[1]] # returns the estimated wind speed at h=height
+
+}
+</code></pre>
+
+<pre><code>## Error in `[.data.frame`(windSpeeds, windSpeeds$id == id, c(&quot;ws10&quot;, &quot;ws25&quot;, : object &#39;id&#39; not found
+</code></pre>
+
+<pre><code>## Error in wsAdj(h, c(10, 25, 45), wsVector): object &#39;wsVector&#39; not found
+</code></pre>
+
+<pre><code>## Error in paste0(round(wsp, 2), &quot; m/s&quot;): object &#39;wsp&#39; not found
 </code></pre>
 
   </article>
@@ -104,7 +125,13 @@
 
 <p>For example, if the mean wind speed were 8 m/s , and a 2 MW Gamesa G80  turbine were selected, the AEP would be</p>
 
-<pre><code>## [1] &quot;7149 MWh&quot;
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;WT&#39; not found
+</code></pre>
+
+<pre><code>## Error in AEP(ws, shape, selectedWTData$v, selectedWTData$P): object &#39;ws&#39; not found
+</code></pre>
+
+<pre><code>## Error in paste0(round(as.numeric(a), 0), &quot; MWh&quot;): object &#39;a&#39; not found
 </code></pre>
 
 <p>Any number of wind turbines could be included, and the app could be extended to cover the whole of the UK.</p>

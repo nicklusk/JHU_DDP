@@ -1,0 +1,11 @@
+base
+sp
+raster
+leaflet
+htmlwidgets
+RColorBrewer
+dplyr
+ggplot2
+htmltools
+rgdal
+slidify
