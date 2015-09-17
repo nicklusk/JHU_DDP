@@ -1,28 +1,30 @@
 mbh_project
-========================================================
-author: 
-date: 
+========================
+author: Michael Hunt
+date: now
+css: styles.css
 
 Slide With My Leaflet Plot
 ========================================================
         
 ```{r plot map of Cornwall,cache=FALSE,results="asis",echo=FALSE,message=FALSE}
-library(leaflet)
-library(htmlwidgets)
-library(knitr)
-m<-leaflet() %>%
-        addTiles() %>%  
-        setView(lng = -4.7, lat = 50.4, zoom = 10) %>%
-        addMarkers(lng = -4.7, lat = 50.4)
-saveWidget(m, 'cornwall.html')
-cat('<iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>')
-```
+ library(leaflet)
+ library(htmlwidgets)
+ library(knitr)
+
+ m<-leaflet() %>%
+         addTiles() %>%  
+         setView(lng = -4.7, lat = 50.4, zoom = 10)
+         #addMarkers(lng = -4.7, lat = 50.4)
+ saveWidget(m, 'cornwall.html')
+ cat('<iframe src="cornwall.html" STYLE="width:2000px;height:600px"> </iframe>')
+ ```
 
 
 Slide With My ggmaps Plot
 ========================================================
         
-```{r ,message=FALSE,echo=FALSE,message=FALSE}
+```{r ,message=FALSE,echo=FALSE,message=FALSE,cache=TRUE}
 library(ggplot2)
 library(maps)
 library(ggmap)

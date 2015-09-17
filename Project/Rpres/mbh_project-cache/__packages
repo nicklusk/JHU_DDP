@@ -1,0 +1,8 @@
+base
+knitr
+leaflet
+htmlwidgets
+ggplot2
+maps
+ggmap
+mapproj
