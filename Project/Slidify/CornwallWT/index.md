@@ -8,8 +8,6 @@ knit: slidify::knit2slides
 mode: standalone
 hitheme: tomorrow
 logo: CC_logo.png
-url:
-  assets: ../../assets
 subtitle: null
 framework: io2012
 widgets: [mathjax,quiz,bootstrap,leaflet]
@@ -45,11 +43,11 @@ The leaflet package is used to display a clickable, zoomable map centred on Corn
 
 ## Calculate the mean annual wind speed
 
-The user clicks on the map within the boundaries of Cornwall and the app detects the location of the click to within a 1 km2 square. 
+The user clicks on the map within the boundaries of Cornwall and the app detects the location of the click to within a 1 km^2 square. 
 
-The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10m, 25m and 45m. A linearised (by log transform) power law fit is used.
+The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10 m, 25 m and 45 m. A linearised (by log transform) power law fit is used.
 
-For example, if a location selected were on the windy north coast, that had id=25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:
+For example, if a location selected were on the windy north coast, that had id=25 in the atlas csv file, and if a tower height of *h*=50 m had been selected, then the windspeed at that height would be found to be:
 
 
 
@@ -67,7 +65,7 @@ As is common practice, a Weibull distribution of wind speeds is assumed, determi
   
 Given this windspeed and the power output specification of the selected turbine, the annual energy production (AEP) of the turbine can be estimated.
   
-For example, if the mean wind speed were 8 m/s , and a 2 MW Gamesa G80  turbine were selected, the AEP would be
+For example, if the mean wind speed were 8 m s^-1 , and a 2 MW Gamesa G80  turbine were selected, the AEP would be
 
 
 

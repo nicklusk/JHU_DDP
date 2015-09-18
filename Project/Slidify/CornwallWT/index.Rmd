@@ -8,8 +8,6 @@ knit: slidify::knit2slides
 mode: standalone
 hitheme: tomorrow
 logo: CC_logo.png
-url:
-  assets: ../../assets
 subtitle: null
 framework: io2012
 widgets: [mathjax,quiz,bootstrap,leaflet]
@@ -36,7 +34,7 @@ We have produced a Shiny app that uses wind speed atlas data for the county toge
 
 ```{r,echo=FALSE}
 # read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
-# wind speeds are given for 10 m, 25m and 45 m heights with 1 km2 resolution
+# wind speeds are given for 10 m, 25 m and 45 m heights with 1 km2 resolution
 windSpeeds<-read.csv("windspeeds.csv",stringsAsFactors=FALSE)
 ```
 
@@ -46,14 +44,18 @@ The leaflet package is used to display a clickable, zoomable map centred on Corn
 library(leaflet)
 library(htmlwidgets)
 library(knitr)
-# get Cornwall boundary data
+library(RColorBrewer)
 library(raster)
+# get Cornwall boundary data
 adm <- getData('GADM', country='GBR', level=2)
 cornwall=adm[adm$NAME_2=="Cornwall",]
-m<-leaflet() %>%
+
+reds = colorNumeric("BuPu", domain = NULL)
+
+m<-leaflet(data = windSpeeds) %>%
     addTiles() %>% 
     addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>%
-#     addRectangles(~lon, ~lat,~lon+0.014,~lat+0.009,layerId=~id,group=NULL,stroke=FALSE,color="blue", weight = 1, opacity = 0, fill = TRUE,fillColor = ~reds(ws25),fillOpacity = 0.3)%>%
+    addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,stroke =     FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,fillColor = ~reds(ws25),fillOpacity = 0.4) %>%
      setView(lng = -4.9, lat = 50.4, zoom = 8)
 
 saveWidget(m, 'cornwall.html')
@@ -65,11 +67,11 @@ cat('<iframe src="cornwall.html" STYLE="width:800px;height:480px"> </iframe>')
 
 ## Calculate the mean annual wind speed
 
-The user clicks on the map within the boundaries of Cornwall and the app detects the location of the click to within a 1 km2 square. 
+The user clicks on the map within the boundaries of Cornwall and the app detects the location of the click to within a 1 km^2 square. 
 
-The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10m, 25m and 45m. A linearised (by log transform) power law fit is used.
+The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10 m, 25 m and 45 m. A linearised (by log transform) power law fit is used.
 
-For example, if a location selected were on the windy north coast, that had id=25 `r id=25`in the atlas csv file, and if a tower height of h=50 m`r h=50` had been selected, then the windspeed at that height would be found to be:
+For example, if a location selected were on the windy north coast, that had id=25 `r id=25`in the atlas csv file, and if a tower height of *h*=50 m`r h=50` had been selected, then the windspeed at that height would be found to be:
 
 ```{r, echo=FALSE}
 wsAdj<-function(height,hVector,wsVector){
@@ -104,7 +106,7 @@ As is common practice, a Weibull distribution of wind speeds is assumed, determi
   
 Given this windspeed and the power output specification of the selected turbine, the annual energy production (AEP) of the turbine can be estimated.
   
-For example, if the mean wind speed were 8 m/s , and a 2 MW Gamesa G80  turbine were selected, the AEP would be
+For example, if the mean wind speed were 8 m s^-1 , and a 2 MW Gamesa G80  turbine were selected, the AEP would be
 
 ```{r, echo=FALSE}
 AEP<-function(meanv,shape=2,wsVector,powerVector){
