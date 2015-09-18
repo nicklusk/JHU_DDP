@@ -2,11 +2,14 @@
 title: "Cornwall wind energy estimator"
 author: "Michael Hunt"
 highlighter: highlight.js
-output: pdf_document
+output: html_document
 job: null
 knit: slidify::knit2slides
-mode: selfcontained
+mode: standalone
 hitheme: tomorrow
+logo: CC_logo.png
+url:
+  assets: ../../assets
 subtitle: null
 framework: io2012
 widgets: [mathjax,quiz,bootstrap,leaflet]
@@ -35,28 +38,26 @@ We have produced a Shiny app that uses wind speed atlas data for the county toge
 # read in wind speed map of Cornwall taken from the UK NOABL wind speed atlas.
 # wind speeds are given for 10 m, 25m and 45 m heights with 1 km2 resolution
 windSpeeds<-read.csv("windspeeds.csv",stringsAsFactors=FALSE)
-
-
-# get Cornwall boundary data
-adm <- getData('GADM', country='GBR', level=2)
-cornwall=adm[adm$NAME_2=="Cornwall",]
 ```
 
-The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayn by an illustrative wind speed mesh.
+The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayed by an illustrative wind speed mesh.
   
-```{r,echo=FALSE}
+```{r,echo=FALSE,results='asis'}
+library(leaflet)
+library(htmlwidgets)
+library(knitr)
 # get Cornwall boundary data
 library(raster)
 adm <- getData('GADM', country='GBR', level=2)
 cornwall=adm[adm$NAME_2=="Cornwall",]
-library(leaflet)
-library(htmlwidgets)
 m<-leaflet() %>%
-addTiles() %>%  
-setView(lng = -4.7, lat = 50.4, zoom = 10)
+    addTiles() %>% 
+    addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>%
+#     addRectangles(~lon, ~lat,~lon+0.014,~lat+0.009,layerId=~id,group=NULL,stroke=FALSE,color="blue", weight = 1, opacity = 0, fill = TRUE,fillColor = ~reds(ws25),fillOpacity = 0.3)%>%
+     setView(lng = -4.9, lat = 50.4, zoom = 8)
 
 saveWidget(m, 'cornwall.html')
-cat('<iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>')
+cat('<iframe src="cornwall.html" STYLE="width:800px;height:480px"> </iframe>')
 ```
 
 
@@ -68,9 +69,9 @@ The user clicks on the map within the boundaries of Cornwall and the app detects
 
 The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10m, 25m and 45m. A linearised (by log transform) power law fit is used.
 
-For example, if a location selected were on the windy north coast, that had id25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:
+For example, if a location selected were on the windy north coast, that had id=25 `r id=25`in the atlas csv file, and if a tower height of h=50 m`r h=50` had been selected, then the windspeed at that height would be found to be:
 
-```{r, eco=FALSE}
+```{r, echo=FALSE}
 wsAdj<-function(height,hVector,wsVector){
 
 # height - height at which speed is to be calculated
@@ -86,6 +87,8 @@ wsAdj<-function(height,hVector,wsVector){
 ```
 
 ```{r, echo=FALSE}
+id=25
+h=50
 wsVector <-as.numeric(windSpeeds[windSpeeds$id==id,c("ws10","ws25","ws45")])
 # estimate wind speed at selected hub height, from atlas values at 10,25 and 45 m heights.
 wsp<-wsAdj(h,c(10,25,45),wsVector)
@@ -124,7 +127,8 @@ AEP<-function(meanv,shape=2,wsVector,powerVector){
 powerCurves<-read.csv("powerCurves.csv",stringsAsFactors=FALSE)
 
 shape<-2
-
+WT="Gamesa G80"
+ws=8
 selectedWTData<-subset(powerCurves,turbine==WT)[,c("v","P","cP")]
 a<-AEP(ws,shape,selectedWTData$v,selectedWTData$P)
 print(paste0(round(as.numeric(a),0)," MWh"))

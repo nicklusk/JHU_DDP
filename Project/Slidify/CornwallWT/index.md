@@ -2,11 +2,14 @@
 title: "Cornwall wind energy estimator"
 author: "Michael Hunt"
 highlighter: highlight.js
-output: pdf_document
+output: html_document
 job: null
 knit: slidify::knit2slides
-mode: selfcontained
+mode: standalone
 hitheme: tomorrow
+logo: CC_logo.png
+url:
+  assets: ../../assets
 subtitle: null
 framework: io2012
 widgets: [mathjax,quiz,bootstrap,leaflet]
@@ -33,12 +36,9 @@ We have produced a Shiny app that uses wind speed atlas data for the county toge
 
 
 
-The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayn by an illustrative wind speed mesh.
+The leaflet package is used to display a clickable, zoomable map centred on Cornwall. In the app this is overlayed by an illustrative wind speed mesh.
   
-
-```
-## <iframe src="cornwall.html" STYLE="width:100%;height:100%"> </iframe>
-```
+<iframe src="cornwall.html" STYLE="width:800px;height:480px"> </iframe>
 
 
 ---
@@ -49,35 +49,13 @@ The user clicks on the map within the boundaries of Cornwall and the app detects
 
 The turbine tower height is selected with a slider, and the mean annual wind speed at this location and height is then estimated from the windspeeds provided by the atlas,which gives wind speed values for heights of 10m, 25m and 45m. A linearised (by log transform) power law fit is used.
 
-For example, if a location selected were on the windy north coast, that had id25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:
+For example, if a location selected were on the windy north coast, that had id=25 in the atlas csv file, and if a tower height of h=50 m had been selected, then the windspeed at that height would be found to be:
 
 
-```r
-wsAdj<-function(height,hVector,wsVector){
-
-# height - height at which speed is to be calculated
-# hVector - known heights
-# ws Vector - known wind speeds
-
-       hlog<-log(hVector/hVector[1])
-       wslog<-log(wsVector/wsVector[1])
-       fit<-lm(wslog~-1+hlog)
-       wsVector[1]*(height/hVector[1])^fit[[1]] # returns the estimated wind speed at h=height
-
-}
-```
 
 
 ```
-## Error in `[.data.frame`(windSpeeds, windSpeeds$id == id, c("ws10", "ws25", : object 'id' not found
-```
-
-```
-## Error in wsAdj(h, c(10, 25, 45), wsVector): object 'wsVector' not found
-```
-
-```
-## Error in paste0(round(wsp, 2), " m/s"): object 'wsp' not found
+## [1] "6.84 m/s"
 ```
 
 
@@ -96,15 +74,7 @@ For example, if the mean wind speed were 8 m/s , and a 2 MW Gamesa G80  turbine 
 
 
 ```
-## Error in eval(expr, envir, enclos): object 'WT' not found
-```
-
-```
-## Error in AEP(ws, shape, selectedWTData$v, selectedWTData$P): object 'ws' not found
-```
-
-```
-## Error in paste0(round(as.numeric(a), 0), " MWh"): object 'a' not found
+## [1] "7149 MWh"
 ```
 Any number of wind turbines could be included, and the app could be extended to cover the whole of the UK.
 

@@ -2,12 +2,12 @@ mbh_project
 ========================
 author: Michael Hunt
 date: now
-css: styles.css
+#css: styles.css
 
 Slide With My Leaflet Plot
 ========================================================
         
-<iframe src="cornwall.html" STYLE="width:2000px;height:600px"> </iframe>
+<iframe src="cornwall.html" STYLE="width:900px;height:600px"> </iframe>
 
 
 Slide With My ggmaps Plot
