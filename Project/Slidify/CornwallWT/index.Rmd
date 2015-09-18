@@ -54,8 +54,8 @@ reds = colorNumeric("BuPu", domain = NULL)
 
 m<-leaflet(data = windSpeeds) %>%
     addTiles() %>% 
-    addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>%
-    addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,stroke =     FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,fillColor = ~reds(ws25),fillOpacity = 0.4) %>%
+    #addPolygons(data=cornwall, weight = 3, fillColor = "red", popup=NULL,fillOpacity = 0.) %>%
+    #addRectangles(~lon, ~lat, ~lon+0.014, ~lat+0.009, layerId =~id, group = NULL,stroke =     FALSE, color = "blue", weight = 1, opacity = 0, fill = TRUE,fillColor = ~reds(ws25),fillOpacity = 0.4) %>%
      setView(lng = -4.9, lat = 50.4, zoom = 8)
 
 saveWidget(m, 'cornwall.html')
